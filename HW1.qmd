@@ -139,7 +139,7 @@ df_shape <- ufo_sightings |>
     
 8.  **What is the purpose of rescaling `opacity_val`? And why rescale from 0.3 to 1?**
 
-    -   
+    -   This prevents the darkest opacity value from being the same color as the background, making it invisible. 
 
 ### iv. Create `df_day_hour`
 
@@ -193,7 +193,7 @@ caption <- glue("{original}{space}{dan_github}
 
 11. **In your own words, what is the difference between `paste0()` and `glue()`? Why did the author use `paste0` to construct `quotes` and `glue` to construct the other text elements?**
 
-    -   
+    -   `Paste0()` creates string expressions by separating elements with quotes, with any r functionality not in quotes and separates by commas, and combining elements into the final expression. While `glue()` is similar, it creates string expressions within a single quoted expression with r functionality or elements within `{}` brackets, referred to as string interpolation. String interpolation methods are especially useful for complicated HTML code, as the author used here, and tends to yield more readable string construction as compared to paste0().
 
 ## IV. Build plots
 
@@ -248,16 +248,16 @@ plot_shape <- ggplot(data = df_shape) +
 plot_us <-  ggplot(df_us) +
   geom_rect(aes(xmin = 0, xmax = 1, ymin = 0, ymax = 1, alpha = opacity_val), 
             fill = accent) +
+  geom_text(aes(x = 0.5, y = 0.3, label = round(num_obs_per10k, 1)), 
+            family = "orb", 
+            fontface = "bold",
+            size = 8, 
+            color = bg) + 
   geom_text(aes(x = 0.5, y = 0.7, label = state), 
             family = "orb", 
             fontface = "bold",
             size = 9, 
             color = bg) +
-  geom_text(aes(x = 0.5, y = 0.3, label = round(num_obs_per10k, 1)), 
-            family = "orb", 
-            fontface = "bold",
-            size = 8, 
-            color = bg) +  
   geofacet::facet_geo(~state) +
   coord_fixed(ratio = 1) +
   labs(subtitle = "Sightings per 10k population") +
@@ -275,7 +275,7 @@ plot_us <-  ggplot(df_us) +
 
 13. **Consider the order of `geom_*()` layers in the the above plot (`plot_us`). Why did the author order the layers in this way?**
 
-    -   
+    -   This order allows for the opacity value (shades of green) to be the bottom layer, with the text for state and sightings/10k population to be layered on top in black. The `geom_text` layers are interchangable as they are not layered over each other, they just need to be ordered after `geom_rect` so the green background is in fact a background with text layered over it.
 
 ### iii. Build `plot_day`
 
@@ -374,7 +374,7 @@ quote3 <- ggplot() +
 
 16. **Why do you think the author chose to convert these text elements (and also in `plot_ufo`, below!) into ggplot objects (you may consider returning to this question after you've worked your way through all of the code)?**
 
-    -   
+    -   By making each element into ggplot objects, the author can first make sure each element does not cause errors on their own and looks accurate to what the author wants them to look like visually. By not making separate objects, there is a higher chance the final visualization code could throw and error and not render. The final visualization can then be assembled with each working element, which also leads to cleaner final code that is easy to follow and understand. With each element as a separate object, the author can also easily manipulate where each graph is assembled on the infographic.
 
 ### v. Build `plot_ufo`
 
@@ -429,7 +429,7 @@ plot_base <- ggplot() +
 
 17. **Why does the author render `plot.caption` using `ggtext::element_markdown()`, rather than `element_text()` (like he does for rendering `plot.title` and `text`)?**
 
-    -   
+    -   element_markdown() is better for rendering complicated formatting (such as with markdown or HTML), while element_text() is good enough for simpler text segments. The author could have used `element_markdown()` for all elements and likely would have had the same result.
 
 ## V. Assemble & save
 
@@ -460,11 +460,11 @@ ggsave(plot = plot_final,
 
 18. **Explain how `plot_final` is assembled. What do you think is the most challenging aspect of arranging all components into a single plot?**
 
-    -   
+    -   Each individual element (each quote and plot is separate) is individually added to the plot base which has the title and captions. I think the most challenging aspect is likely adjusting the location of each element on the base plot with the numbers between 0 and 1 such that it looks correct. 
 
 19. **Can you think of one reason the author may have chosen to separate the construction of `plot_base` and `plot_final`?**
 
-    -   
+    -   This allows for modularity of each plot element of quotes and graphs so that it is adjustable and aesthetic, and allows the final plot code to look cleaner and clearer.
 
 ## Answer some final reflective questions
 
@@ -484,16 +484,16 @@ ggsave(plot = plot_final,
 
 21. **Describe two elements of this piece that you find visually-pleasing / easy to understand / intuitive. Why?**
 
-    -   Answer here
+    -   I find the graph describing the most common reported shapes to be the most intuitive to understand. I also really enjoy the simplistic and fun color theme! It really leans into the sci-fi/alien aesthetic while still being mostly easy to read and look at.
 
 22. **Describe two elements of this piece that you feel could be better presented in a different way. Why?**
 
-    -   Answer here
+    -   I think the final plot depicting when the most sighting were observed by hour and day could be better depicted. It's not entirely intuitive at first glance what is being looked at since there is no title. It also becomes a bit difficult to read the darker green over the black background, making the darkest shade a bit lighter would help.
 
 23. **Describe two new things that you learned by interpreting / annotating this code. These could be packages, functions, or even code organizational approaches that you hadn't previously known about or considered.**
 
-    -   Answer here
+    -   Assembling the final graphic with many different plots was new to me and very interesting! I didn't know multiple plots could be depicted in one graphic in such a way. The `geofacet` package was also new to me, the author used it to arrange sightings per 10k population by state in the actual shape of the united states! I also appreciated that the author assigned many variables  
 
 24. **How, if at all, did you use AI tools to help you interpret this code? Describe your approach to using these tools for this assignment. In what ways was consulting the documentation more (or less) helpful than using AI?**
 
-    -   Answer here
+    -   I did not use AI tools to help interpret this code. My main source was documentation for each function or element I was not sure about, and trying to find examples of it being used on stack overflow, reddit, or other websites! Often when I was still confused after that, I would change numbers or comment out parts of this code and see how the output would change to understand what each element was performing. 
