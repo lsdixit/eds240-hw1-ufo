@@ -2,7 +2,7 @@
 title: "HW #1"
 subtitle: "Interpreting `{ggplot2}` code"
 description: "Assigned Wed 01/07/2026 | Due Wed 01/14/2026"
-author: "Your Name"
+author: "Leela Dixit"
 toc: true
 editor_options: 
   chunk_output_type: console
@@ -503,15 +503,15 @@ ggsave(plot = plot_final,
 
     a.  **What "perceptual tasks" (from Cleveland & McGill's heirarchy) must the viewer perform to extract information from these visualizations?**
 
-        -   
+        -   The viewer has to judge positioning along a common scale (and potentially perceive color shade) to get information from the highest sightings per shape type. Similarly for the sightings/10k, the viewer must judge positioning beacuse this plot displays each state in its physical location in the US. The viewer must also percieve color shade to understand the amount of sightings for each state compared to each other. For the final plot looking at sightings per hour and day, the viewer must perceive a time scale along a circular angle, along with perceiving shading for the amount of sightings.
 
     b.  **What task(s) do you think the author wanted to enable or message(s) he wanted to convey with these visualizations (see lecture 2.1, slide 16 for examples)? Be sure to note at least one task / message for each of the three data viz.**
 
-        -   
+        -   For the bar plot of highest shapes sighted, I believe the author was trying to easily convey which shapes are most commonly sighted, with a bigger emphasis on the top few shapes and less of an emphasis as it gets less common (due to the opacity shading). For the state specific sightings, the author is trying to enable the viewer to spatially associate where the most sightings are, both with the physical location of each state being akin to the United States spatially, and with opacity. Finally, the plot looking at sighting per hour and day, the author is trying to reveal the pattern that sightings are most common around 1 am on Sundays through visualizing complex combination of multiple time series (hour and weekday).
 
     c.  **Name at least one caveat to the "hierarchy of perceptual tasks" that the author employed to achieve a goal(s) you noted in question b?**
 
-        -   
+        -   The author chose to visualize time with a donut chart to depict moving time and change in sighting frequency, but that does challenge the viewer to perceive both angle and direction, along with shade. With this visualization method, though, the viewer can quickly locate which cells are the brightest green (the most sightings) and follow the donut curve to determine what day and time those cells refer to. The viewer can also easily see the decreasing pattern of sighting over time surrounding that day/time of highest sightings.
 
 21. **Describe two elements of this piece that you find visually-pleasing / easy to understand / intuitive. Why?**
 
